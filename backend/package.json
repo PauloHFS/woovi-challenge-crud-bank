@@ -1,0 +1,30 @@
+{
+  "name": "woovi-challenge-crud-bank",
+  "version": "1.0.0",
+  "main": "src/index.ts",
+  "repository": "git@github.com:PauloHFS/woovi-challenge-crud-bank.git",
+  "author": "Paulo Hernane <paulohernane10@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx watch --env-file=.env src/index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "@types/koa": "^2.15.0",
+    "@types/koa-bodyparser": "^4.3.12",
+    "@types/node": "^20.12.13",
+    "tsx": "^4.11.0",
+    "typescript": "^5.4.5"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "graphql": "^16.8.1",
+    "graphql-helix": "^1.13.0",
+    "koa": "^2.15.3",
+    "koa-bodyparser": "^4.4.1",
+    "mongoose": "^8.4.0"
+  }
+}
