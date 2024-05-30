@@ -1,5 +1,9 @@
 import { createModule, gql } from 'graphql-modules';
-import { getUserByTaxId, updateUserHashedPassword } from '../services';
+import {
+  createNewUser,
+  getUserByTaxId,
+  updateUserHashedPassword,
+} from '../services';
 import { checkPassword, createJWTToken } from '../utils';
 
 export const authModule = createModule({
@@ -8,6 +12,7 @@ export const authModule = createModule({
   typeDefs: [
     gql`
       input SignUpData {
+        first_name: String!
         tax_id: String!
         password: String!
       }
@@ -38,16 +43,40 @@ export const authModule = createModule({
       me: () => 'me',
     },
     Mutation: {
-      signup: async (_root: any, _args: any) => {
-        console.log(_args);
+      signup: async (_root: any, args: any) => {
+        console.log(args);
+
+        const { user, error } = await createNewUser({
+          first_name: args?.data?.first_name,
+          tax_id: args?.data?.tax_id,
+          password: args?.data?.password,
+        });
+
+        if (error || user == undefined) {
+          return {
+            error: error ?? 'Não foi possivel cadastrar o usuário',
+          };
+        }
+
+        const { token, error: JWTError } = await createJWTToken({
+          _id: user._id,
+          tax_id: user.tax_id,
+          first_name: user.first_name,
+        });
+
+        if (JWTError || token == undefined) {
+          return {
+            error: 'Cannot generate the access_token',
+          };
+        }
 
         return {
-          access_token: '123',
+          access_token: token,
           type: 'Bearer',
         };
       },
-      signin: async (_root: {}, _args: any) => {
-        const { user, error } = await getUserByTaxId(_args?.data?.tax_id);
+      signin: async (_root: {}, args: any) => {
+        const { user, error } = await getUserByTaxId(args?.data?.tax_id);
 
         if (error || user == undefined || user == null) {
           return {
@@ -59,7 +88,7 @@ export const authModule = createModule({
           error: checkPasswordError,
           isOk,
           new_hash,
-        } = await checkPassword(user.hashed_password, _args?.data?.password);
+        } = await checkPassword(user.hashed_password, args?.data?.password);
 
         if (checkPasswordError && isOk == undefined) {
           return {
@@ -69,7 +98,7 @@ export const authModule = createModule({
 
         if (new_hash) {
           const { error } = await updateUserHashedPassword({
-            tax_id: _args?.data?.tax_id as string,
+            tax_id: args?.data?.tax_id as string,
             hashed_password: new_hash,
           });
 
