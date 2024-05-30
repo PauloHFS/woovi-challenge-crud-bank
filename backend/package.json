@@ -21,8 +21,12 @@
     "node": ">=20"
   },
   "dependencies": {
+    "@types/jsonwebtoken": "^9.0.6",
+    "argon2": "^0.40.3",
     "graphql": "^16.8.1",
     "graphql-helix": "^1.13.0",
+    "graphql-modules": "^2.3.0",
+    "jsonwebtoken": "^9.0.2",
     "koa": "^2.15.3",
     "koa-bodyparser": "^4.4.1",
     "mongoose": "^8.4.0"

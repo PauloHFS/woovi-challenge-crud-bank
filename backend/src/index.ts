@@ -8,7 +8,7 @@ import {
 import koa from 'koa';
 import bodyparser from 'koa-bodyparser';
 import mongoose from 'mongoose';
-import { schema } from './schema';
+import { application } from './graphql';
 
 let mongoClient: typeof mongoose;
 
@@ -42,7 +42,9 @@ app.use(async ctx => {
       query,
       variables,
       request,
-      schema,
+      schema: application.schema,
+      execute: application.createExecution(),
+      subscribe: application.createSubscription(),
     });
 
     ctx.respond = false;
