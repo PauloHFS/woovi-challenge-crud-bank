@@ -80,7 +80,7 @@ export const authModule = createModule({
 
         if (error || user == undefined || user == null) {
           return {
-            error: error ?? 'usuário não encontrado',
+            error: error ?? 'Usuário não encontrado',
           };
         }
 
