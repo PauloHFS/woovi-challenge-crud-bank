@@ -8,24 +8,29 @@
   "scripts": {
     "build": "tsc",
     "dev": "tsx watch --env-file=.env src/index.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "vitest",
+    "coverage": "vitest run --coverage"
   },
   "devDependencies": {
     "@types/koa": "^2.15.0",
     "@types/koa-bodyparser": "^4.3.12",
     "@types/node": "^20.12.13",
+    "@vitest/coverage-v8": "^1.6.0",
+    "easygraphql-tester": "^6.0.1",
     "tsx": "^4.11.0",
-    "typescript": "^5.4.5"
+    "typescript": "^5.4.5",
+    "vitest": "^1.6.0"
   },
   "engines": {
     "node": ">=20"
   },
   "dependencies": {
+    "@graphql-tools/schema": "^10.0.4",
     "@types/jsonwebtoken": "^9.0.6",
     "argon2": "^0.40.3",
     "graphql": "^16.8.1",
     "graphql-helix": "^1.13.0",
-    "graphql-modules": "^2.3.0",
+    "graphql-import-node": "^0.0.5",
     "jsonwebtoken": "^9.0.2",
     "koa": "^2.15.3",
     "koa-bodyparser": "^4.4.1",

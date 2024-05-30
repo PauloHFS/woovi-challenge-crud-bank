@@ -5,10 +5,11 @@ import {
   sendResult,
   shouldRenderGraphiQL,
 } from 'graphql-helix';
+import 'graphql-import-node';
 import koa from 'koa';
 import bodyparser from 'koa-bodyparser';
 import mongoose from 'mongoose';
-import { application } from './graphql';
+import { contextFactory, schema } from './graphql';
 
 let mongoClient: typeof mongoose;
 
@@ -42,9 +43,8 @@ app.use(async ctx => {
       query,
       variables,
       request,
-      schema: application.schema,
-      execute: application.createExecution(),
-      subscribe: application.createSubscription(),
+      schema,
+      contextFactory: () => contextFactory(ctx),
     });
 
     ctx.respond = false;
@@ -71,19 +71,3 @@ process.on('SIGTERM', () => {
     console.log('server down!');
   });
 });
-
-// run().catch(err => console.log(err));
-
-// async function run() {
-//   // 4. Connect to MongoDB
-//   await connect('mongodb://127.0.0.1:27017/test');
-
-//   const user = new User({
-//     name: 'Bill',
-//     email: 'bill@initech.com',
-//     avatar: 'https://i.imgur.com/dM7Thhn.png',
-//   });
-//   await user.save();
-
-//   console.log(user.email); // 'bill@initech.com'
-// }

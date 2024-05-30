@@ -1,0 +1,31 @@
+type User {
+  _id: String!
+  first_name: String!
+  tax_id: String!
+}
+
+input SignUpData {
+  first_name: String!
+  tax_id: String!
+  password: String!
+}
+
+input SignInData {
+  tax_id: String!
+  password: String!
+}
+
+type AuthResponse {
+  access_token: String
+  type: String
+  error: String
+}
+
+type Query {
+  me: User
+}
+
+type Mutation {
+  signin(data: SignInData): AuthResponse
+  signup(data: SignUpData): AuthResponse
+}
