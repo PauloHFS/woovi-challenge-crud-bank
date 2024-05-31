@@ -15,8 +15,6 @@ const resolvers = {
   },
   Mutation: {
     signup: async (_root: any, args: any) => {
-      console.log(args);
-
       const { user, error } = await createNewUser({
         first_name: args?.data?.first_name,
         tax_id: args?.data?.tax_id,
@@ -104,7 +102,9 @@ const resolvers = {
   },
 };
 
-export const AuthSchema = makeExecutableSchema({
+const AuthSchema = makeExecutableSchema({
   typeDefs,
   resolvers,
 });
+
+export { AuthSchema, resolvers };
