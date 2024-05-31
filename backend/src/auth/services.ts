@@ -1,4 +1,6 @@
+import { Account } from '@/core/models/Account';
 import * as argon2 from 'argon2';
+import mongoose from 'mongoose';
 import { User } from './models/User';
 
 export const createNewUser = async ({
@@ -10,6 +12,8 @@ export const createNewUser = async ({
   tax_id: string;
   password: string;
 }) => {
+  const session = await mongoose.startSession();
+  session.startTransaction();
   try {
     const hashed_password = await argon2.hash(password);
 
@@ -18,11 +22,21 @@ export const createNewUser = async ({
       tax_id,
       hashed_password,
     });
+    // TODO: Create a account
+    const account = new Account({
+      user_id: user.id,
+    });
 
     await user.save();
+    await account.save();
 
-    return { user };
+    await session.commitTransaction();
+    await session.endSession();
+
+    return { user, account };
   } catch (error) {
+    await session.endSession();
+    await session.endSession();
     return { error };
   }
 };
