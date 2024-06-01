@@ -1,18 +1,18 @@
-import { makeExecutableSchema } from '@graphql-tools/schema';
+import { makeExecutableSchema } from "@graphql-tools/schema";
 import {
   createTransaction,
   getAccounts,
   getTransactionById,
   getTransactions,
-} from '../services';
-import * as typeDefs from './schema.graphql';
+} from "../services";
+import * as typeDefs from "./schema.graphql";
 
 const resolvers = {
   Query: {
     accounts: async (_root: any, args: any, ctx: any) => {
       if (!ctx.user) {
         return {
-          error: 'Not authorized',
+          error: "Not authorized",
         };
       }
 
@@ -20,7 +20,7 @@ const resolvers = {
 
       if (error || !accounts) {
         return {
-          error: error ?? 'WTF',
+          error: error ?? "WTF",
         };
       }
 
@@ -31,7 +31,7 @@ const resolvers = {
     transaction: async (_root: any, args: any, ctx: any) => {
       if (!ctx.user) {
         return {
-          error: 'Not authorized',
+          error: "Not authorized",
         };
       }
 
@@ -42,7 +42,7 @@ const resolvers = {
 
       if (error || !transaction) {
         return {
-          error: error ?? 'Transação não encontrada',
+          error: error ?? "Transação não encontrada",
         };
       }
 
@@ -56,7 +56,7 @@ const resolvers = {
     transactions: async (_root: any, args: any, ctx: any) => {
       if (!ctx.user) {
         return {
-          error: 'Not authorized',
+          error: "Not authorized",
         };
       }
 
@@ -65,7 +65,7 @@ const resolvers = {
       if (error || !transactions) {
         //TODO fix the return type to not be necessary this
         return {
-          error: error ?? 'WTF',
+          error: error ?? "WTF",
         };
       }
 
@@ -79,7 +79,7 @@ const resolvers = {
     create_transaction: async (_root: any, args: any, ctx: any) => {
       if (!ctx.user) {
         return {
-          error: 'Not authorized',
+          error: "Not authorized",
         };
       }
 
@@ -93,12 +93,12 @@ const resolvers = {
       if (error || !registers) {
         //TODO fix the return type to not be necessary this
         return {
-          error: error ?? 'WTF',
+          error: error ?? "WTF",
         };
       }
 
       const register = registers.find(
-        v => v.sender_id == ctx?.user?._id?.toString()
+        (v) => v.sender_id == ctx?.user?._id?.toString(),
       );
 
       return {

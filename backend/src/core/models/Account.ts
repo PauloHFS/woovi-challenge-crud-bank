@@ -1,5 +1,5 @@
-import { UserRef } from '@/auth/models/User';
-import { Schema, Types, model } from 'mongoose';
+import { UserRef } from "@/auth/models/User";
+import { Schema, Types, model } from "mongoose";
 
 export interface AccountSchema {
   _id: Types.ObjectId;
@@ -28,8 +28,8 @@ const accountSchema = new Schema<AccountSchema>(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
-export const AccountRef = 'Account';
+export const AccountRef = "Account";
 export const Account = model<AccountSchema>(AccountRef, accountSchema);

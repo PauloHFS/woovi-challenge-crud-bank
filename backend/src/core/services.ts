@@ -1,6 +1,6 @@
-import mongoose from 'mongoose';
-import { Account } from './models/Account';
-import { Transaction } from './models/Transaction';
+import mongoose from "mongoose";
+import { Account } from "./models/Account";
+import { Transaction } from "./models/Transaction";
 
 export const getAccounts = async () => {
   try {
@@ -66,7 +66,7 @@ export const createTransaction = async ({
 
       return {
         error: `${
-          !senderAccount ? 'Sender Account' : 'Receiver Account'
+          !senderAccount ? "Sender Account" : "Receiver Account"
         } not found`,
       };
     }

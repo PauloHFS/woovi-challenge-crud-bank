@@ -1,5 +1,5 @@
-import { UserRef } from '@/auth/models/User';
-import { Schema, Types, model } from 'mongoose';
+import { UserRef } from "@/auth/models/User";
+import { Schema, Types, model } from "mongoose";
 
 export interface TransactionSchema {
   _id: Types.ObjectId;
@@ -25,11 +25,11 @@ export const transactionSchema = new Schema<TransactionSchema>(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
-export const TransactionRef = 'Transaction';
+export const TransactionRef = "Transaction";
 export const Transaction = model<TransactionSchema>(
   TransactionRef,
-  transactionSchema
+  transactionSchema,
 );

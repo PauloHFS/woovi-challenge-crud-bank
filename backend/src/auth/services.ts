@@ -1,7 +1,7 @@
-import { Account } from '@/core/models/Account';
-import * as argon2 from 'argon2';
-import mongoose from 'mongoose';
-import { User } from './models/User';
+import { Account } from "@/core/models/Account";
+import * as argon2 from "argon2";
+import mongoose from "mongoose";
+import { User } from "./models/User";
 
 export const createNewUser = async ({
   first_name,
@@ -67,7 +67,7 @@ export const updateUserHashedPassword = async ({
       },
       {
         hashed_password,
-      }
+      },
     );
     return { result };
   } catch (error) {

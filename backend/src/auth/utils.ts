@@ -1,7 +1,7 @@
-import * as argon2 from 'argon2';
-import { IncomingMessage } from 'http';
-import * as jwt from 'jsonwebtoken';
-import { User } from './models/User';
+import * as argon2 from "argon2";
+import { IncomingMessage } from "http";
+import * as jwt from "jsonwebtoken";
+import { User } from "./models/User";
 
 interface JWTPayload {
   _id: string;
@@ -12,7 +12,7 @@ interface JWTPayload {
 export const createJWTToken = async (payload: JWTPayload) => {
   try {
     const token = jwt.sign(payload, process.env.JWT_SECRET!, {
-      expiresIn: '1 day',
+      expiresIn: "1 day",
     });
     return { token };
   } catch (error) {
@@ -22,10 +22,10 @@ export const createJWTToken = async (payload: JWTPayload) => {
 
 export async function getUserByJWTToken(request: IncomingMessage) {
   if (request.headers.authorization) {
-    const token = request.headers.authorization.split(' ')[1];
+    const token = request.headers.authorization.split(" ")[1];
     const tokenPayload = jwt.verify(
       token,
-      process.env.JWT_SECRET!
+      process.env.JWT_SECRET!,
     ) as JWTPayload;
 
     const user = await User.findOne(
@@ -36,7 +36,7 @@ export async function getUserByJWTToken(request: IncomingMessage) {
         _id: 1,
         first_name: 1,
         tax_id: 1,
-      }
+      },
     );
 
     return user;
@@ -47,7 +47,7 @@ export async function getUserByJWTToken(request: IncomingMessage) {
 
 export const checkPassword = async (
   hashed_password: string,
-  unchecked_password: string
+  unchecked_password: string,
 ) => {
   try {
     const isOk = await argon2.verify(hashed_password, unchecked_password);

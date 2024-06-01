@@ -1,4 +1,4 @@
-import { Schema, Types, model } from 'mongoose';
+import { Schema, Types, model } from "mongoose";
 
 export interface UserSchema {
   _id: Types.ObjectId;
@@ -15,8 +15,8 @@ const userSchema = new Schema<UserSchema>(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
-export const UserRef = 'User';
+export const UserRef = "User";
 export const User = model<UserSchema>(UserRef, userSchema);

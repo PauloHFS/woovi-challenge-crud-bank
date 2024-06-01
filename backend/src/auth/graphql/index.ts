@@ -1,11 +1,11 @@
-import { makeExecutableSchema } from '@graphql-tools/schema';
+import { makeExecutableSchema } from "@graphql-tools/schema";
 import {
   createNewUser,
   getUserByTaxId,
   updateUserHashedPassword,
-} from '../services';
-import { checkPassword, createJWTToken } from '../utils';
-import * as typeDefs from './schema.graphql';
+} from "../services";
+import { checkPassword, createJWTToken } from "../utils";
+import * as typeDefs from "./schema.graphql";
 
 const resolvers = {
   Query: {
@@ -23,7 +23,7 @@ const resolvers = {
 
       if (error || user == undefined) {
         return {
-          error: error ?? 'Não foi possivel cadastrar o usuário',
+          error: error ?? "Não foi possivel cadastrar o usuário",
         };
       }
 
@@ -35,13 +35,13 @@ const resolvers = {
 
       if (JWTError || token == undefined) {
         return {
-          error: 'Cannot generate the access_token',
+          error: "Cannot generate the access_token",
         };
       }
 
       return {
         access_token: token,
-        type: 'Bearer',
+        type: "Bearer",
       };
     },
     signin: async (_root: {}, args: any) => {
@@ -49,7 +49,7 @@ const resolvers = {
 
       if (error || user == undefined || user == null) {
         return {
-          error: error ?? 'Usuário não encontrado',
+          error: error ?? "Usuário não encontrado",
         };
       }
 
@@ -72,7 +72,7 @@ const resolvers = {
         });
 
         if (error) {
-          console.log('Error ao atualizar hash do usuário: ' + error);
+          console.log("Error ao atualizar hash do usuário: " + error);
         }
       }
 
@@ -85,18 +85,18 @@ const resolvers = {
 
         if (error || token == undefined) {
           return {
-            error: 'Cannot generate the access_token',
+            error: "Cannot generate the access_token",
           };
         }
 
         return {
           access_token: token,
-          type: 'Bearer',
+          type: "Bearer",
         };
       }
 
       return {
-        error: 'tax_id and password are not valid!',
+        error: "tax_id and password are not valid!",
       };
     },
   },
