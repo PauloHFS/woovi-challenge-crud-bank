@@ -13,7 +13,7 @@ const accountSchema = new Schema<AccountSchema>(
     account_number: {
       type: String,
       unique: true,
-      auto: true,
+      required: true,
     },
     user_id: {
       type: Schema.Types.ObjectId,

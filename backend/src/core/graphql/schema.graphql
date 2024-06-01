@@ -1,3 +1,46 @@
+type Account {
+  account_number: String
+  user_id: String
+  balance: String
+}
+
+type AccountsReponse {
+  data: [Account]
+  error: String
+}
+
+type TransactionResponse {
+  transaction_id: String
+  sender_id: String
+  receiver_id: String
+  value: Int
+  error: String
+}
+
+type TransactionsReponse {
+  data: [TransactionResponse]
+  error: String
+}
+
+# You should get the sender_id from the access_token
+input CreateTransaction {
+  transaction_id: String
+  receiver_id: String
+  value: Int
+}
+
+type CreateTransactionResponse {
+  _id: String
+  error: String
+}
+
 type Query {
-  hello: String!
+  accounts: AccountsReponse
+
+  transaction(transaction_id: String!): TransactionResponse
+  transactions: TransactionsReponse
+}
+
+type Mutation {
+  create_transaction(data: CreateTransaction!): CreateTransactionResponse
 }

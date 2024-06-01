@@ -1,20 +1,25 @@
+import { UserRef } from '@/auth/models/User';
 import { Schema, Types, model } from 'mongoose';
-import { AccountRef } from './Account';
 
-interface TransactionSchema {
+export interface TransactionSchema {
   _id: Types.ObjectId;
+  transaction_id: string;
   sender_id: Types.ObjectId;
   receiver_id: Types.ObjectId;
   value: number;
 }
 
-const transactionSchema = new Schema<TransactionSchema>(
+export const transactionSchema = new Schema<TransactionSchema>(
   {
-    sender_id: { type: Schema.Types.ObjectId, required: true, ref: AccountRef },
+    transaction_id: {
+      type: String,
+      required: true,
+    },
+    sender_id: { type: Schema.Types.ObjectId, required: true, ref: UserRef },
     receiver_id: {
       type: Schema.Types.ObjectId,
       required: true,
-      ref: AccountRef,
+      ref: UserRef,
     },
     value: { type: Number, required: true },
   },

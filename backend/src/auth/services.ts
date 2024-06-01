@@ -22,8 +22,8 @@ export const createNewUser = async ({
       tax_id,
       hashed_password,
     });
-    // TODO: Create a account
     const account = new Account({
+      account_number: user.id, // TODO find a better way to gen this number
       user_id: user.id,
     });
 
